@@ -199,7 +199,7 @@ export default class LoadDiskImage extends React.Component<any, LoadDiskImageSta
             return encodeURI(url);
         } else {
             const targetDisk = targetDiskList[0];
-            return encodeURI(sweetHome.backendUrl + "/dispatch/load?deviceName=" + targetDisk + "&source=" + resotringSource.value + "&size=" + resotringSource.filesize + "&restoretype=" + restoreType + wipe);
+            return encodeURI(sweetHome.backendUrl + "/dispatch/load?deviceNames=" + targetDisk + "&source=" + resotringSource.value + "&size=" + resotringSource.filesize + "&restoretype=" + restoreType + wipe);
         }
     }
 
@@ -240,7 +240,7 @@ export default class LoadDiskImage extends React.Component<any, LoadDiskImageSta
 
 
     onAbort() {
-        fetch(sweetHome.backendUrl + "/dispatch/stop-load", {
+        fetch(sweetHome.backendUrl + "/dispatch/load/stop", {
             "method": "POST"
         })
             .then(_ => {

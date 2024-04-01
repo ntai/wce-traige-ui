@@ -128,7 +128,7 @@ export default class WipeDisk extends React.Component<any, WipeDiskStateType> {
 
 
   onAbort() {
-    fetch(sweetHome.backendUrl + "/dispatch/stop-wipe", {"method":"POST"}).then(_ => {
+    fetch(sweetHome.backendUrl + "/dispatch/wipe/stop", {"method":"POST"}).then(_ => {
       this.fetchWipeStatus();
     });
   }

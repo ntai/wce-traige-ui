@@ -234,7 +234,7 @@ export default class Disks extends React.Component<DisksPropsType, DisksStateTyp
 
     requestUnmountDisk(deviceName: string, mountState: boolean) {
         // Request the data however you want.  Here, we'll use our mocked service we created earlier
-        fetch(sweetHome.backendUrl + "/dispatch/unmount?deviceName=" + deviceName + "&mount=" + mountState,
+        fetch(sweetHome.backendUrl + "/dispatch/unmount?deviceNames=" + deviceName + "&mount=" + mountState,
             {method: "POST"})
             .then(reply => {
                 this.onReset();

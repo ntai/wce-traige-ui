@@ -184,7 +184,7 @@ export default class Triage extends React.Component<any,TriageStateType> {
   }
 
   onOpticalTest() {
-    fetch(sweetHome.backendUrl + '/dispatch/opticaldrivetest', {"method": "POST"}).then(_ => {
+    fetch(sweetHome.backendUrl + '/dispatch/opticaldrive/test', {"method": "POST"}).then(_ => {
       console.log("optical drive test");
     });
   }
@@ -235,7 +235,7 @@ export default class Triage extends React.Component<any,TriageStateType> {
           <PressPlay tooltip={"Test sound"}  title={"\u266B"} kind={"mp3"}     onPlay={ () => this.onMusicPlay()} url={sweetHome.backendUrl + '/dispatch/music'}/>
         </Grid>
         <Grid item xs={1}>
-          <PressPlay tooltip={"Test CD/DVD drive"} title={"\u25CE"} kind={"optical"} onPlay={ () => this.onOpticalTest()} url={sweetHome.backendUrl + '/dispatch/opticaldrivetest'}/>
+          <PressPlay tooltip={"Test CD/DVD drive"} title={"\u25CE"} kind={"optical"} onPlay={ () => this.onOpticalTest()} url={sweetHome.backendUrl + '/dispatch/opticaldrive/test'}/>
         </Grid>
 
         <Grid item xs={2}>

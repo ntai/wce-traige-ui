@@ -117,7 +117,7 @@ export default class SaveDiskImage extends React.Component<any,SaveDiskImageStat
   }
 
   onAbort() {
-    fetch(sweetHome.backendUrl + "/dispatch/stop-save", {"method":"POST"}).then(res => {
+    fetch(sweetHome.backendUrl + "/dispatch/save/stop", {"method":"POST"}).then(res => {
       this.fetchSavingStatus();
     });
   }
