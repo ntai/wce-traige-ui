@@ -61,7 +61,16 @@ export default function App()
 
     React.useEffect( ()  => {
         fetch(sweetHome.backendUrl + "/version")
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok)
+                    return res.json();
+                if (res.status === 404) {
+                    setState({
+                        backendVersion: "Backend version is too old",
+                        frontendVersion: "Uknown"
+                    })
+                }
+            })
             .then(result => {
                 console.log(result);
                 setState({
@@ -70,9 +79,10 @@ export default function App()
                 })
             })
             .catch((reason) => {
+                console.log("/version: " + reason);
                 setState({
-                    backendVersion: "Incompatible version. Backend version is too old.",
-                    frontendVersion: "Incompatible version. Backend version is too old."
+                    backendVersion: "Network Error - is the backend running on 10600?",
+                    frontendVersion: "?"
                 })
             });
     }, []);

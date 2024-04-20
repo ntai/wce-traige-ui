@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DiskDetails(props) {
   const classes = useStyles();
   const disk = props.disk;
-  var details = [
+  let details = [
     {name: 'Vendor', value: disk.vendor },
     {name: 'Model', value: disk.model },
     {name: 'Size', value: disk.size, format: 'disksize'},

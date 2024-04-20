@@ -6,7 +6,6 @@ import OperationProgressBar from './OperationProgressBar';
 import DiskDetails from "./DiskDetails";
 import {DeviceSelectionType, DiskType, ItemType, RunReportType, WipeType} from "../common/types";
 import UsbIcon from '@mui/icons-material/Usb';
-import Box from "@mui/material/Box";
 import {Socket, io} from "socket.io-client";
 
 type DisksPropsType = {
@@ -236,7 +235,7 @@ export default class Disks extends React.Component<DisksPropsType, DisksStateTyp
         // Request the data however you want.  Here, we'll use our mocked service we created earlier
         fetch(sweetHome.backendUrl + "/dispatch/unmount?deviceNames=" + deviceName + "&mount=" + mountState,
             {method: "POST"})
-            .then(reply => {
+            .then(_reply => {
                 this.onReset();
             });
     }
@@ -257,16 +256,16 @@ export default class Disks extends React.Component<DisksPropsType, DisksStateTyp
                     columns={[
                         {
                             title: "Disk",
-                            render: (row, index) => row.deviceName,
+                            render: (row, _index) => row.deviceName,
                             cellStyle: {backgroundColor: '#eeeeee', width: 150, fontSize: 'small', ...commonCellProps},
                             headerStyle: {backgroundColor: '#eeeeee', ...commonCellProps}
                         },
                         {
                             title: "Mounted",
-                            render: (row, index) => (<input
+                            render: (row, _index) => (<input
                                 type="checkbox"
                                 className="checkbox"
-                                checked={this.state.mounted[row.deviceName] === true ? true : false}
+                                checked={this.state.mounted[row.deviceName] === true}
                                 onChange={() => this.requestUnmountDisk(row.deviceName, this.state.mounted[row.deviceName])}
                             />),
                             cellStyle: {width: 80, alignSelf: "center", verticalAlign: "middle", ...commonCellProps},
@@ -320,7 +319,7 @@ export default class Disks extends React.Component<DisksPropsType, DisksStateTyp
                         selection: true,
                         selectionProps: (rowData, index) => ({
                             disabled: rowData.mounted,
-                            checked: rowData.target ? true : false
+                            checked: rowData.target
                         }),
                         rowStyle: (rowData, index) => ({
                             backgroundColor: rowData.target ? '#37b15933' : '',

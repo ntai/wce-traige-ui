@@ -1,8 +1,9 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import {sweetHome} from "../../../looseend/home";
-import TreeView from '@mui/lab/TreeView';
-import TreeItem, {TreeItemProps} from '@mui/lab/TreeItem';
+// import { TreeView } from '@mui/x-tree-view/TreeView';
+import { SimpleTreeView } from '@mui/x-tree-view';
+import { TreeItem, TreeItemProps } from '@mui/x-tree-view/TreeItem';
 import Label from '@mui/icons-material/Label';
 import Checkbox from "@mui/material/Checkbox";
 import Menu from "@mui/material/Menu";
@@ -18,12 +19,14 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {DeviceSelectionType, ImageMetaType} from "../../common/types";
 import {SourceType, ToDiskSources} from "./DiskImageSelector";
 import {Theme} from "@mui/material/styles";
 import {makeStyles} from "@mui/styles";
+import {HighlightOff} from "@mui/icons-material";
 
 
 const useTreeItemStyles = makeStyles((theme: Theme) => ({
@@ -116,7 +119,6 @@ function StyledTreeItem(props: TreeItemProps & StyledTreeItemProps) {
 
   return (
     <TreeItem
-      nodeId={nodeId}
       key={nodeId}
       label={
         <div className={classes.labelRoot}>
@@ -131,7 +133,6 @@ function StyledTreeItem(props: TreeItemProps & StyledTreeItemProps) {
         root: classes.root,
         content: classes.content,
         expanded: classes.expanded,
-        group: classes.group,
         label: classes.label,
       }}
       {...other}
@@ -208,7 +209,7 @@ function ImageFileItem(props: ImageFileItemProps) {
 
   return (
     <div onContextMenu={handleItemClick} style={{ cursor: 'context-menu' }}>
-      <StyledTreeItem selected={selected} nodeId={catalog + "/" + imageFile.label} value={imageFile.label} handleChange={selectionChanged} labelText={imageFile.label} labelIcon={<ArchiveIcon/>} />
+      <StyledTreeItem selected={selected} nodeId={catalog + "/" + imageFile.label} itemId={catalog + "/" + imageFile.label} value={imageFile.label} handleChange={selectionChanged} labelText={imageFile.label} labelIcon={<ArchiveIcon/>} />
       <Menu
         keepMounted
         open={isOpen}
@@ -384,9 +385,9 @@ function CatalogList(props: {
         if (!catalog.id) return null;
         const catalog_id = catalog.id;
         return (
-          <StyledTreeItem
+          <StyledTreeItem itemId={catalog.id}
               nodeId={catalog.id} labelText={catalog.name} labelIcon={<Label />}
-              onClick={(_) => onCatalogClick(catalog_id)}
+              onClick={() => onCatalogClick(catalog_id)}
           >
             {fileList(catalog.id)}
            </StyledTreeItem>
@@ -396,6 +397,7 @@ function CatalogList(props: {
 }
 
 export type DiskImageOperationType = "expand" | "collapse" | "selectall" | "deselectall";
+
 
 export default function DiskImageTreeView(
     {command, clearCommand, selectionChangedCB} :
@@ -580,21 +582,18 @@ export default function DiskImageTreeView(
   if (!sourcesLoading && !catalogTypesLoading) {
     return (
       <div>
-        <TreeView
+        <SimpleTreeView
           className={classes.root}
-          expanded={expandedCategories}
-          defaultCollapseIcon={<ArrowDropDownIcon/>}
-          defaultExpandIcon={<ArrowRightIcon/>}
-          defaultEndIcon={<div style={{width: 24}}/>}
+          defaultExpandedItems={expandedCategories}
         >
           <CatalogList catalogTypes={catalogTypes}
-                       catalogIndex={catalogIndex}
-                       selectionChanged={selectionChanged}
-                       handleRenameCommand={handleRenameCommand}
-                       handleDeleteCommand={handleDeleteCommand}
-                       onCatalogClick={onCatalogClick}
-                       selection={selection} />
-        </TreeView>
+                         catalogIndex={catalogIndex}
+                         selectionChanged={selectionChanged}
+                         handleRenameCommand={handleRenameCommand}
+                         handleDeleteCommand={handleDeleteCommand}
+                         onCatalogClick={onCatalogClick}
+                         selection={selection} />
+        </SimpleTreeView>
         <RenameDialog open={renameDialogOpen} setOpen={renameDialogSetOpen} submitRename={submitRename}
                       filename={targetImageFile ? targetImageFile.label : ""} targetImageFile={targetImageFile}/>
         <DeleteDialog open={deleteDialogOpen} setOpen={deleteDialogSetOpen} submitDelete={submitDelete}
