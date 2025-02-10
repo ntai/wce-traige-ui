@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import wcelogo from './wcelogo.svg';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {blue, green, grey, red} from "@mui/material/colors";
+import Messages from "./components/Messages";
 
 /*
 const styles = StyleSheet.create({
@@ -103,6 +104,9 @@ export default function App()
 
                     <Grid item xs={12}>
                         <Commands/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Messages />
                     </Grid>
                 </Container>
             </ThemeProvider>

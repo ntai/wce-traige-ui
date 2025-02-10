@@ -160,7 +160,7 @@ export default class RunnerProgress extends React.Component<RunnerPropsType, Run
             {
               title: "Step",
               render: (row, rowIndex) => row.taskCategory,
-              cellStyle: columnCellStyle({fontSize: fontSize, textAlign: "right", minWidth: 300, maxWidth: 450}),
+              cellStyle: columnCellStyle({fontSize: fontSize, textAlign: "right", width: 320}),
               headerStyle: columnHeaderStyle({textAlign: "right"}),
             },
             {
@@ -208,7 +208,7 @@ export default class RunnerProgress extends React.Component<RunnerPropsType, Run
             },
             {
               title: "Description",
-              cellStyle: columnCellStyle({fontSize: fontSize,  minWidth: 350, maxWidth: 400}),
+              cellStyle: columnCellStyle({fontSize: fontSize, flex: 1}),
               headerStyle: columnHeaderStyle({}),
               render: (row, _) => (<Typography sx={{fontSize: "0.8rem"}}>{row.taskMessage}</Typography>)
             }

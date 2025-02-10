@@ -378,14 +378,14 @@ export default class DiskImageManagement extends React.Component<any, DiskImageM
                               selectAllFilesCB={this.selectAll.bind(this)} />
           </Grid>
 
-          <Grid item xs={8}>
+          <Grid item xs={4}>
             <ButtonGroup>
               <Tooltip title="Sync disk images to disk">
                 <Button aria-label="sync" disabled={!syncImageEnabled} startIcon={<BuildIcon />} variant="contained" color="primary" onClick={() => this.syncImages()}>Sync Images</Button>
               </Tooltip>
             </ButtonGroup>
-
-            <SafetyDivider/>
+          </Grid>
+            <Grid item xs={4}>
             <ButtonGroup>
               <Button startIcon={<RefreshIcon />} size="small" variant="contained" color="primary" onClick={() => this.onReset()}>Reset</Button>
               <Button startIcon={<CancelIcon />} size="small" variant="contained" color="secondary" onClick={() => this.abortSyncImages()} disabled={!isRunning}>Abort</Button>

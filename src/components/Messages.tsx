@@ -6,12 +6,16 @@ import {io} from 'socket.io-client';
 
 type MessagesStateType = {
   messages: string[];
+  start: number,
+  count: number
 }
 
 export default class Messages extends Component<any, MessagesStateType> {
   constructor(props:any) {
     super(props);
     this.state = {
+      start: 0,
+      count: 100,
       messages: []
     }
   }
@@ -19,7 +23,7 @@ export default class Messages extends Component<any, MessagesStateType> {
   /* Initial message loading */
   fetchMessages() {
     // Request the data however you want.
-    fetch(sweetHome.backendUrl + '/dispatch/messages').then( rep => rep.json()).then(res => {
+    fetch(sweetHome.backendUrl + `/dispatch/messages?start=0&count=${this.state.count}`).then( rep => rep.json()).then(res => {
       this.setState({messages: res.messages});
     });
   }
@@ -42,8 +46,8 @@ export default class Messages extends Component<any, MessagesStateType> {
 
     return (
       <Grid style={{ display: "flex", flex: 1 }} container >
-        <Grid style={{ display: "flex", flex: 1 }} item xs={12}>
-          <Box overflow="auto" id="scroll" flex={1} bgcolor="white" height="400px" className="message-font">
+        <Grid style={{ display: "flex", flex: 1 }} item xs={12} sx={{boxShadow: "2"}}>
+          <Box  overflow="auto" id="scroll" flex={1} bgcolor="white" height="300px" className="message-font" >
             {messages.map(line => {return (<div>{line}</div>)})}
           </Box>
         </Grid>

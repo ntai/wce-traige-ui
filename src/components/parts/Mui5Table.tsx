@@ -317,7 +317,7 @@ export default function Mui5Table<RowType>(props: Mui5TableProps<RowType>) {
                                                 return (
                                                     <TableRow sx={rowStyle} key={`table-row-detail-${rowIndex}`}>
                                                         <TableCell style={{padding: 0}}
-                                                                   colSpan={6}>
+                                                                   colSpan={7}>
                                                             <Collapse
                                                                 in={getPanelToggle(panelToggles, rowIndex, panelIndex)}
                                                                 timeout="auto" unmountOnExit>
